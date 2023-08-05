@@ -1,0 +1,80 @@
+aster_controller_node:
+  ros__parameters:
+    Kp: 1.2
+    Ki: 0.001
+    Kd: 0.5
+    delta_time: 0.1
+    enc_ticks_per_rev: 20
+    left_base_speed: 0
+    right_base_speed: 0
+    wheel_base: 0.128
+    wheel_radius: 0.0325
+
+aster_odometry_node:
+  ros__parameters:
+    delta_time: 0.1
+    ticks_per_rev: 20
+    wheel_base: 0.128
+    wheel_radius: 0.0325
+    publish_tf: True
+
+/stm32/aster_serial_node:
+  ros__parameters:
+    serial_baud_rate: 115200
+    serial_port: '/dev/ttyACM0'
+
+/arduino/aster_serial_node:
+  ros__parameters:
+    serial_baud_rate: 115200
+    serial_port: '/dev/ttyACM1'
+
+imu_filter:
+  ros__parameters:
+    stateless: False
+    use_mag: False
+    publish_tf: False
+    reverse_tf: False
+    fixed_frame: base_link
+    constant_dt: 0.0
+    publish_debug_topics: False
+    world_frame: "enu"
+    gain: 0.25
+    zeta: 0.0
+    orientation_stddev: 0.2
+    remove_gravity_vector: False
+
+ekf_filter_node:
+  ros__parameters:
+    frequency: 10.0
+    sensor_timeout: 0.1
+    two_d_mode: True
+    publish_acceleration: False
+    print_diagnostics: False
+    publish_tf: False
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: odom
+
+    odom0: odometry
+    odom0_config: [False, False, False,
+                   False, False, False,
+                   True, True, False,
+                   False, False, True,
+                   False, False, False]
+    odom0_relative: True
+    odom0_queue_size: 2
+    odom0_nodelay: False
+    odom0_differential: False
+
+    imu0: imu/data
+    imu0_config: [False, False, False,
+                  False, False, True,
+                  False, False, False,
+                  False, False, False,
+                  False, False, False]
+    imu0_relative: True
+    imu0_nodelay: False
+    imu0_differential: False
+    imu0_queue_size: 10
+    imu0_remove_gravitational_acceleration: False
+
